@@ -6,7 +6,7 @@
 /*   By: rseelaen <rseelaen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 09:59:28 by rseelaen          #+#    #+#             */
-/*   Updated: 2023/11/03 15:43:03 by rseelaen         ###   ########.fr       */
+/*   Updated: 2023/11/08 18:30:40 by rseelaen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	delete_key(t_env **env_var, char *key)
 	}
 }
 
-void	clear_hashtable(t_env **env_var)
+void	clear_hashtable(void)
 {
 	int		i;
 	t_env	*tmp;
@@ -87,9 +87,9 @@ void	clear_hashtable(t_env **env_var)
 	i = 0;
 	while (i < TABLE_SIZE)
 	{
-		if (env_var[i])
+		if (g_main.env_var[i])
 		{
-			tmp = env_var[i];
+			tmp = g_main.env_var[i];
 			while (tmp)
 			{
 				next = tmp->next;

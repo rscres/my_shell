@@ -6,7 +6,7 @@
 /*   By: rseelaen <rseelaen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 13:46:07 by rseelaen          #+#    #+#             */
-/*   Updated: 2023/11/06 18:39:00 by rseelaen         ###   ########.fr       */
+/*   Updated: 2023/11/08 18:30:36 by rseelaen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,13 @@ int		parse_line(char *str);
 //hashtable.c
 int		hash(char *key);
 t_env	*search(t_env **env_var, char *key);
-void	clear_hashtable(t_env **env_var);
+void	clear_hashtable(void);
 void	delete_key(t_env **env_var, char *key);
 void	insert_key(t_env **env_var, char *key, char *value);
 
 //Env
 //set_env.c
-int 	set_env(t_env **env_var, char **env);
+int		set_env(t_env **env_var, char **env);
 int		free_tab(char **tab);
 
 //------------------TEST FUNCTIONS-----------------------

@@ -6,7 +6,7 @@
 /*   By: rseelaen <rseelaen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 15:55:50 by rseelaen          #+#    #+#             */
-/*   Updated: 2023/11/06 18:59:18 by rseelaen         ###   ########.fr       */
+/*   Updated: 2023/11/08 18:23:30 by rseelaen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,75 @@ char	*tokenizer(char *str)
 	return (token);
 }
 
+int	get_type(char *token)
+{
+	if (ft_strcmp(token, ">>") == 0)
+		return (DOUBLE_GREATER_THAN);
+	if (ft_strcmp(token, "<<") == 0)
+		return (DOUBLE_LESS_THAN);
+	if (ft_strcmp(token, ">") == 0)
+		return (GREATER_THAN);
+	if (ft_strcmp(token, "<") == 0)
+		return (LESS_THAN);
+	if (ft_strcmp(token, "&&") == 0)
+		return (AND);
+	if (ft_strcmp(token, "||") == 0)
+		return (OR);
+	if (ft_strcmp(token, "|") == 0)
+		return (PIPE);
+	return (WORD);
+}
+
+t_token	*create_token(char *str, int type)
+{
+	t_token	*token;
+
+	token = malloc(sizeof(t_token));
+	if (!token)
+		return (NULL);
+	token->name = ft_strdup(str);
+	token->type = type;
+	token->next = NULL;
+	token->prev = NULL;
+	return (token);
+}
+
+void	clear_tokens(void)
+{
+	t_token	*tmp;
+
+	while (g_main.tokens)
+	{
+		tmp = g_main.tokens;
+		g_main.tokens = g_main.tokens->next;
+		free(tmp->name);
+		free(tmp);
+	}
+}
+
+void	add_token(t_token *new)
+{
+	t_token	*tmp;
+
+	if (!new)
+		return ;
+	if (g_main.tokens == NULL)
+		g_main.tokens = new;
+	else
+	{
+		tmp = g_main.tokens;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
+		new->prev = tmp;
+	}
+}
+
+void	syntax_analyser()
+{
+
+}
+
 int	parse_line(char *str)
 {
 	char	*token;
@@ -54,10 +123,17 @@ int	parse_line(char *str)
 	token = tokenizer(str);
 	while (token)
 	{
-		printf("%s\n", token);
+		add_token(create_token(token, get_type(token)));
 		free(token);
 		token = tokenizer(NULL);
 	}
+	t_token	*tmp = g_main.tokens;
+	while (tmp)
+	{
+		printf("%s\n", tmp->name);
+		tmp = tmp->next;
+	}
+	clear_tokens();
 	return (0);
 }
 

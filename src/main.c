@@ -6,7 +6,7 @@
 /*   By: rseelaen <rseelaen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 11:58:19 by rseelaen          #+#    #+#             */
-/*   Updated: 2023/11/06 18:37:37 by rseelaen         ###   ########.fr       */
+/*   Updated: 2023/11/08 18:31:41 by rseelaen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*get_line(void)
 
 void	ft_exit(int status)
 {
-	clear_hashtable(g_main.env_var);
+	clear_hashtable();
 	printf("exit\n");
 	exit(status);
 }
@@ -62,9 +62,11 @@ int	main(__attribute__((unused))int argc, __attribute__((unused))char **argv,
 	char **env)
 {
 	char	*line;
+	t_main	g_main;
 
 	signal_set();
 	init_global();
+	init_hashtable(g_main.env_var);
 	set_env(g_main.env_var, env);
 	while (1)
 	{
